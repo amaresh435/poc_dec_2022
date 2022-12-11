@@ -25,17 +25,11 @@ pipeline {
                       terraform plan -out tfplan
                       #terraform plan -lock=false
                       terraform show -no-color tfplan > tfplan.txt
-                      cat tfplan.txt
+                      #cat tfplan.txt
                   '''
             }
         }
         stage('Approval') {
-           when {
-               not {
-                   equals expected: true, actual: params.autoApprove
-               }
-           }
-
            steps {
                script {
                     def plan = readFile 'terraform/tfplan.txt'
@@ -44,10 +38,9 @@ pipeline {
                }
            }
        }
-
         stage('Apply') {
             steps {
-                sh "pwd;cd terraform/ ; terraform apply -input=false tfplan"
+                sh "terraform apply -input=false tfplan"
             }
         }
     }
