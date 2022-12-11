@@ -21,7 +21,8 @@ pipeline {
         stage('Plan') {
             steps {
                 sh '''echo "$PWD"
-                      cd terraform_gcp
+                      #cd terraform_gcp
+                      ls -lart
                       terraform init
                       terraform plan -out tfplan
                       terraform show -no-color tfplan > tfplan.txt
