@@ -6,7 +6,7 @@ terraform {
 }
 
 provider "google" {
-  credentials = "POC-SA-ACCESS-KEY-FILE"
+  credentials = POC-SA-ACCESS-KEY-FILE
   project     = local.project
   region      = local.region
 }
