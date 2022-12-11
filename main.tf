@@ -164,7 +164,7 @@ resource "google_compute_firewall" "default" {
 }
 
 resource "google_compute_network" "default" {
-  name = "amar-vpc2"
+  name = "amar-vpc3"
 }
 
 module "load_balancer" {
@@ -174,5 +174,5 @@ module "load_balancer" {
   name         = "load-balancer"
   service_port = 8080
   target_tags  = ["allow-lb-service"]
-  network      = "amar-vpc2"
+  network      = "amar-vpc3"
 }
