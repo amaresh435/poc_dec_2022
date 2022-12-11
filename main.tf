@@ -123,7 +123,7 @@ resource "google_compute_instance_group_manager" "foobar" {
 }
 
 #Setting Linux Debian cloud image version
-data "google_compute_image" "debian_11" {
+data "google_compute_image" "debian_9" {
   family  = "debian-11"
   project = "debian-cloud"
 }
