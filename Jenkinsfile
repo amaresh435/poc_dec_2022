@@ -12,7 +12,7 @@ pipeline {
                  script{
                         dir("terraform")
                         {
-                            git "https://github.com/amaresh435/poc_dec_2022.git"
+                            git branch: 'develop', changelog: false, poll: false, url: 'https://github.com/amaresh435/poc_dec_2022.git'
                         }
                     }
                 }
@@ -20,7 +20,7 @@ pipeline {
 
         stage('Plan') {
             steps {
-                sh "cd /home/amareshguligoudar_gmail_com/terraform; terraform init"
+                sh "terraform init"
                 sh "terraform plan -out tfplan"
                 sh "terraform show -no-color tfplan > tfplan.txt"
             }
