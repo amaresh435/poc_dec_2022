@@ -17,14 +17,15 @@ pipeline {
 
         stage('Plan') {
             steps {
-                sh '''echo "$PWD"
+                sh '''
+                      echo "$PWD"
                       #cd terraform_gcp
                       ls -lart
                       terraform init
                       terraform plan -out tfplan
                       terraform show -no-color tfplan > tfplan.txt
                       cat tfplan.txt
-                      '''
+                  '''
             }
         }
         stage('Approval') {
