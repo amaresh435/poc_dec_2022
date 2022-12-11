@@ -20,7 +20,7 @@ pipeline {
 
         stage('Plan') {
             steps {
-                sh "terraform init"
+                sh "cd /home/amareshguligoudar_gmail_com/terraform; terraform init"
                 sh "terraform plan -out tfplan"
                 sh "terraform show -no-color tfplan > tfplan.txt"
             }
