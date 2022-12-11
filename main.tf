@@ -4,7 +4,7 @@ locals {
 }
 
 provider "google" {
-  credentials = file("jsonkey.json")
+  credentials = file('POC-SA-ACCESS-KEY-FILE')
   project     = local.project
   region      = local.region
 }
