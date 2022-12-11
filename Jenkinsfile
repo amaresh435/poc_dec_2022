@@ -10,7 +10,7 @@ pipeline {
         stage('checkout') {
             steps {
                  script{
-                        dir("terraform")
+                        dir("terraform_gcp")
                         {
                             git branch: 'develop', changelog: false, poll: false, url: 'https://github.com/amaresh435/poc_dec_2022.git'
                         }
