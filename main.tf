@@ -1,10 +1,3 @@
-terraform {
-  required_version = "~> 0.13.5"
-  required_providers {
-    google = "~> 4.8.0"
-  }
-}
-
 locals {
   project = "internal-interview-candidates"
   region  = "us-central1"
