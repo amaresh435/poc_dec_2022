@@ -3,9 +3,6 @@ pipeline {
     tools {
       terraform 'terraform'
     }
-    environment {
-        
-    }
     stages {
         stage('checkout') {
             steps {
