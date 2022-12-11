@@ -1,13 +1,11 @@
 pipeline {
-
-    parameters {
-        booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
-    } 
+    agent  any
+    tools {
+      terraform 'terraform'
+    }
     environment {
         credentials = file('POC-SA-ACCESS-KEY-FILE')
     }
-
-   agent  any
     stages {
         stage('checkout') {
             steps {
