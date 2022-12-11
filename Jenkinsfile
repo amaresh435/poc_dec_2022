@@ -22,6 +22,7 @@ pipeline {
 
         stage('Plan') {
             steps {
+                sh "$PWD"
                 sh "terraform init"
                 sh "terraform plan -out tfplan"
                 sh "terraform show -no-color tfplan > tfplan.txt"
