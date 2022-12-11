@@ -1,9 +1,10 @@
+# local environment setting
 locals {
   project = "internal-interview-candidates"
   region  = "us-central1"
 }
 
-# https://github.com/terraform-google-modules/terraform-google-network
+# VPC Module CDIR, subnet & routes
 module "vpc" {
   source  = "terraform-google-modules/network/google"
   version = "6.0.0"
@@ -41,7 +42,7 @@ module "vpc" {
   ]
 }
 
-# https://github.com/terraform-google-modules/terraform-google-cloud-router
+# Cloud router 
 module "cloud_router" {
   source  = "terraform-google-modules/cloud-router/google"
   version = "4.0.0"
@@ -61,6 +62,7 @@ module "cloud_router" {
   }]
 }
 
+#Auto scaler 
 resource "google_compute_autoscaler" "foobar" {
   name   = "amar-my-autoscaler1"
   zone   = "us-central1-f"
@@ -77,6 +79,7 @@ resource "google_compute_autoscaler" "foobar" {
   }
 }
 
+#Compute Instance Template used for autoscaling
 resource "google_compute_instance_template" "foobar" {
   name           = "amar-my-instance-template1"
   machine_type   = "e2-medium"
@@ -104,7 +107,8 @@ resource "google_compute_instance_template" "foobar" {
 resource "google_compute_target_pool" "foobar" {
   name = "my-target-pool1"
 }
-
+  
+#Manages Instance Group(MIG) used for autoscaling
 resource "google_compute_instance_group_manager" "foobar" {
   name = "amar-my-igm1"
   zone = "us-central1-f"
@@ -118,13 +122,15 @@ resource "google_compute_instance_group_manager" "foobar" {
   base_instance_name = "foobar"
 }
 
-data "google_compute_image" "debian_9" {
+#Setting Linux Debian cloud image version
+data "google_compute_image" "debian_11" {
   family  = "debian-11"
   project = "debian-cloud"
 }
 
+#Manages Instance Group(MIG) used for autoscaling
 resource "google_compute_instance" "vm_instance" {
-  name = "amar-vm-instance11"
+  name = "amar-vm-instance1"
   machine_type = "f1-micro"
   zone = "us-central1-c"
   tags = ["default", "amar-vpc2"]
@@ -144,9 +150,11 @@ resource "google_compute_instance" "vm_instance" {
   metadata = {
     foo = "bar"
   }
+  #apache2.sh is used to change default port 80 to 8080
   metadata_startup_script = file("./apache2.sh")
 }
 
+#Firewall exposing port 8080 for webserver
 resource "google_compute_firewall" "default" {
   name    = "amar-test-firewall01"
   network = google_compute_network.default.name
@@ -167,6 +175,7 @@ resource "google_compute_network" "default" {
   name = "amar-vpc31"
 }
 
+#Load Balancer this will create its dependecy like google_compute_firewall.default-lb-fw, google_compute_forwarding_rule, load_balancer.google_compute_http_health_check & load_balancer.google_compute_target_pool
 module "load_balancer" {
   source       = "GoogleCloudPlatform/lb/google"
   version      = "~> 2.0.0"
