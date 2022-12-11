@@ -22,7 +22,8 @@ pipeline {
                       #cd terraform_gcp
                       ls -lart
                       terraform init
-                      terraform plan -out tfplan
+                      #terraform plan -out tfplan
+                      terraform plan -lock=false
                       terraform show -no-color tfplan > tfplan.txt
                       cat tfplan.txt
                   '''
