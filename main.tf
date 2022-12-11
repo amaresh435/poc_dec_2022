@@ -146,33 +146,3 @@ resource "google_compute_instance" "vm_instance" {
   }
   metadata_startup_script = file("./apache2.sh")
 }
-
-resource "google_compute_firewall" "default1" {
-  name    = "amar-test-firewall1"
-  network = google_compute_network.default.name
-
-  allow {
-    protocol = "icmp"
-  }
-
-  allow {
-    protocol = "tcp"
-    ports    = ["80", "8080", "1000-2000"]
-  }
-
-  source_tags = ["web"]
-}
-
-resource "google_compute_network" "default" {
-  name = "amar-vpc31"
-}
-
-module "load_balancer" {
-  source       = "GoogleCloudPlatform/lb/google"
-  version      = "~> 2.0.0"
-  region       = local.region
-  name         = "load-balancer"
-  service_port = 8080
-  target_tags  = ["allow-lb-service"]
-  network      = "amar-vpc31"
-}
