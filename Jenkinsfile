@@ -22,7 +22,8 @@ pipeline {
                       #cd terraform_gcp
                       ls -lart
                       terraform init
-                      terraform plan -out tfplan
+                      #terraform plan -out tfplan
+                      terraform plan -no-color -compact-warnings  -lock-timeout=40m -out=plan_to_deploy.plan
                       #terraform plan -lock=false
                       #terraform show -no-color tfplan > tfplan.txt
                       #cat tfplan.txt
@@ -32,7 +33,7 @@ pipeline {
         stage('Approval') {
            steps {
                script {
-                    def plan = readFile 'terraform/tfplan.txt'
+                    def plan = readFile 'plan_to_deploy.plan'
                     input message: "Do you want to apply the plan?",
                     parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
                }
@@ -41,6 +42,7 @@ pipeline {
         stage('Apply') {
             steps {
                 sh "terraform apply -input=false tfplan"
+                sh "terraform apply -auto-approve -lock-timeout=40m plan_to_deploy.plan"
             }
         }
     }
