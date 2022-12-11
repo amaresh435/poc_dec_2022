@@ -4,7 +4,7 @@ pipeline {
       terraform 'terraform'
     }
     environment {
-        credentials = file("POC-SA-ACCESS-KEY-FILE")
+        
     }
     stages {
         stage('checkout') {
