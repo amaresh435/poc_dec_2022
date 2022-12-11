@@ -20,9 +20,13 @@ pipeline {
 
         stage('Plan') {
             steps {
-                sh "terraform init"
-                sh "terraform plan -out tfplan"
-                sh "terraform show -no-color tfplan > tfplan.txt"
+                sh '''echo "$PWD"
+                      cd terraform_gcp
+                      terraform init
+                      terraform plan -out tfplan
+                      terraform show -no-color tfplan > tfplan.txt
+                      cat tfplan.txt
+                      '''
             }
         }
         stage('Approval') {
