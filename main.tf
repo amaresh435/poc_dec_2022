@@ -148,7 +148,7 @@ resource "google_compute_instance" "vm_instance" {
 }
 
 resource "google_compute_firewall" "default" {
-  name    = "amar-test-firewall"
+  name    = "amar-test-firewall01"
   network = google_compute_network.default.name
 
   allow {
@@ -164,7 +164,7 @@ resource "google_compute_firewall" "default" {
 }
 
 resource "google_compute_network" "default" {
-  name = "amar-vpc3"
+  name = "amar-vpc31"
 }
 
 module "load_balancer" {
@@ -174,5 +174,5 @@ module "load_balancer" {
   name         = "load-balancer"
   service_port = 8080
   target_tags  = ["allow-lb-service"]
-  network      = "amar-vpc3"
+  network      = "amar-vpc31"
 }
