@@ -41,7 +41,6 @@ pipeline {
        }
         stage('Apply') {
             steps {
-                sh "terraform apply -input=false tfplan"
                 sh "terraform apply -auto-approve -lock-timeout=40m plan_to_deploy.plan"
             }
         }
