@@ -171,7 +171,7 @@ module "load_balancer" {
   source       = "GoogleCloudPlatform/lb/google"
   version      = "~> 2.0.0"
   region       = local.region
-  name         = "load-balancer"
+  name         = "load-balancer-01"
   service_port = 8080
   target_tags  = ["allow-lb-service"]
   network      = "amar-vpc31"
