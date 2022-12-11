@@ -3,12 +3,6 @@ locals {
   region  = "us-central1"
 }
 
-provider "google" {
-  credentials = file("POC-SA-ACCESS-KEY-FILE")
-  project     = local.project
-  region      = local.region
-}
-
 # https://github.com/terraform-google-modules/terraform-google-network
 module "vpc" {
   source  = "terraform-google-modules/network/google"
