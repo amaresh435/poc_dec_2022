@@ -11,7 +11,7 @@ locals {
 }
 
 provider "google" {
-  credentials = file('POC-SA-ACCESS-KEY-FILE')
+  credentials = file("POC-SA-ACCESS-KEY-FILE")
   project     = local.project
   region      = local.region
 }
